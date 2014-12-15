@@ -1,0 +1,33 @@
+language:
+  node_js
+node_js:
+  - 0.10
+branches:
+  only:
+    - master
+env:
+  global:
+    - secure: aWVdRdJEahNbZCVbpaL7hPibDCsQuuxbkDIL4itF1a3riWvIH87Not/hgAfSspV8dMp/SwS5PGA3Z8CrLYy85Uw4jfiNgo7wle9prtwJAYZ4vI9dZtLmVpgH6TB/TdhKmKy+pL9oNOqdmxmjv1qTP3n1L3GnMmUZS+zWYE6GCjQ=
+    - GH_OWNER: arthurvr
+    - GH_PROJECT_NAME: plugins
+
+before_script:
+  # install dependencies
+  - npm install -g gulp
+script:
+  - gulp
+
+after_success:
+    # Any command that using GH_OAUTH_TOKEN must pipe the output to /dev/null to not expose your oauth token
+    - git submodule add -b gh-pages https://${GH_OAUTH_TOKEN}@github.com/${GH_OWNER}/${GH_PROJECT_NAME} site > /dev/null 2>&1
+    - cd dist
+    - if git checkout gh-pages; then git checkout -b gh-pages; fi
+    - git rm -r .
+    - cp -R ../dist/* .
+    - cp ../dist/.* .
+    - git add -f .
+    - git config user.email "travis@gulpjs.com"
+    - git config user.name "GulpBot"
+    - git commit -am "Hi gh-pages, a new build for you. [ci skip]"
+    # Any command that using GH_OAUTH_TOKEN must pipe the output to /dev/null to not expose your oauth token
+    - git push https://${GH_OAUTH_TOKEN}@github.com/${GH_OWNER}/${GH_PROJECT_NAME} HEAD:gh-pages > /dev/null 2>&1

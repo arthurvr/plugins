@@ -4,7 +4,6 @@ var gulp = require('gulp'),
   minifyCss = require('gulp-minify-css'),
   ngmin = require('gulp-ngmin'),
   useref = require('gulp-useref'),
-  deploy = require('gulp-gh-pages'),
   gif = require('gulp-if'),
   es = require('event-stream'),
   lr = require('gulp-livereload'),
@@ -50,10 +49,4 @@ gulp.task('assets', ['clean'], function () {
   ], {base: 'src'})
     .pipe(gulp.dest('dist'))
     .pipe(lr());
-});
-
-// Deploy
-gulp.task('deploy', ['default'], function () {
-  return gulp.src('dist/**/*')
-    .pipe(deploy('git@github.com:gulpjs/plugins.git'));
 });
