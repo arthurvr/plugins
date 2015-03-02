@@ -56,6 +56,7 @@
   "gulp-continuous-concat": "duplicate of gulp-concat",
   "gulp-dart2js": "use Dart2JS directly through gulp-spawn or ChildProcess.spawn()",
   "gulp-spritesmith": "duplicate of gulp.spritesmith",
+  "gulp-css-spritesmith": "duplicate of gulp.spritesmith",
   "gulp-filelog": "duplicate of gulp-debug",
   "gulp-remove-lines": "duplicate of gulp-replace",
   "gulp-ext-replace": "duplicate of gulp-rename",
